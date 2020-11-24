@@ -12,10 +12,15 @@ class PixelsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create pixel" do
     assert_difference('Pixel.count') do
-      post pixels_url, params: { pixel: { converted: @pixel.converted, converted_at: @pixel.converted_at, provider_id: @pixel.provider_id } }, as: :json
+      post pixels_url, params: { pixel: { provider_id: @pixel.provider_id } }, as: :json
     end
 
     assert_response 201
+  end
+
+  test "should not save save pixel without provider_id" do
+    pixel = Pixel.new
+    assert_not pixel.save
   end
 
   test "should show pixel" do
@@ -24,7 +29,7 @@ class PixelsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update pixel" do
-    patch pixel_url(@pixel), params: { pixel: { converted: @pixel.converted, converted_at: @pixel.converted_at, provider_id: @pixel.provider_id } }, as: :json
+    patch pixel_url(@pixel), params: { pixel: { converted: @pixel.converted } }, as: :json
     assert_response 200
   end
 

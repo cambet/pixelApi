@@ -1,5 +1,5 @@
 class PixelsController < ApplicationController
-  before_action :authenticate_provider!
+  #before_action :authenticate_provider!
   before_action :set_pixel, only: [:show, :update, :destroy]
 
   # GET /pixels
@@ -29,7 +29,7 @@ class PixelsController < ApplicationController
   def update
     @pixel.assign_attributes(pixel_params)
     @pixel.converted_at = DateTime.now
-    
+
     if @pixel.save
       render json: @pixel
     else
